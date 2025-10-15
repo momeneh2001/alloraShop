@@ -4,10 +4,10 @@ import HeroSlider from '../heroSlider/HeroSlider'
 
 function HeroSection() {
   return (
-    <div className='container flex items-center justify-start gap-12'>
+    <section className='container flex items-center justify-start gap-12'>
       <CategoryMenu/>
       <HeroSlider/>
-    </div>
+    </section>
   )
 }
 
