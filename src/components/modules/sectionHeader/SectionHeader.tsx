@@ -5,10 +5,11 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 interface sectionHeaderProps {
     miniTitle: string,
     titel: string,
-    btn?: string
+    btn?: string,
+    time?:boolean
 }
 
-function SectionHeader({ miniTitle, titel, btn }: (sectionHeaderProps)) {
+function SectionHeader({ miniTitle, titel, btn,time }: (sectionHeaderProps)) {
     const [expiryTimestamp] = useState<Date>(() => {
         const time = new Date();
         time.setHours(time.getHours() + 72);
@@ -42,25 +43,29 @@ function SectionHeader({ miniTitle, titel, btn }: (sectionHeaderProps)) {
                 <div className="flex sm:flex-row xs:flex-col xs:gap-2 items-end sm:gap-5 md:gap-10 lg:gap-20">
                     <h2 className="text-3xl font-bold">{titel}</h2>
                     <div className="flex items-center font-mono text-center">
-                        {timeParts.map((item, index) => (
-                            <div key={item.label} className="flex items-center">
-
-                                <div className="flex flex-col items-center justify-center  rounded-xl min-w-[40px]">
-                                    <div className="text-[8px] md:text-[10px] lg:text-xs xxl:text-base text-gray-400  uppercase">
-                                        {item.label}
+                        {
+                            time && (
+                                timeParts.map((item, index) => (
+                                    <div key={item.label} className="flex items-center">
+        
+                                        <div className="flex flex-col items-center justify-center  rounded-xl min-w-[40px]">
+                                            <div className="text-[8px] md:text-[10px] lg:text-xs xxl:text-base text-gray-400  uppercase">
+                                                {item.label}
+                                            </div>
+        
+                                            <div className="text-sm font-bold lg:text-xl xl:text-2xl xxl:text-3xl">
+                                                {format(item.value)}
+                                            </div>
+        
+                                        </div>
+        
+                                        {index < timeParts.length - 1 && (
+                                            <span className="xl:mx-1 xxl:mx-2 text-sm md:text-lg font-bold text-red-600 self-end">:</span>
+                                        )}
                                     </div>
-
-                                    <div className="text-sm font-bold lg:text-xl xl:text-2xl xxl:text-3xl">
-                                        {format(item.value)}
-                                    </div>
-
-                                </div>
-
-                                {index < timeParts.length - 1 && (
-                                    <span className="xl:mx-1 xxl:mx-2 text-sm md:text-lg font-bold text-red-600 self-end">:</span>
-                                )}
-                            </div>
-                        ))}
+                                ))
+                            )
+                        }
                     </div>
                 </div>
 
@@ -69,7 +74,7 @@ function SectionHeader({ miniTitle, titel, btn }: (sectionHeaderProps)) {
                         btn ? (
                             <button className="py-2 px-5 lg:py-2 xl:py-3 xxl:py-4 lg:px-8 xl:px-10 xxl:px-12 text-xs lg:text-sm xl:text-base xxl:text-lg bg-red-600 rounded-md text-white">View All</button>
                         ) : (
-                            <div className="flex gap-2">
+                            <div className="hidden flex gap-2">
                                 <div className="w-8 h-8 bg-neutral-100 flex items-center justify-center rounded-full">
                                     <FaArrowLeftLong className=" " />
                                 </div>

@@ -15,7 +15,7 @@ import { Pagination,Navigation } from 'swiper/modules';
 function FlashSaleSection() {
     return (
         <section className='container mt-40 '>
-            <SectionHeader titel='Flash Sales' miniTitle='Today’s' btn='btn' />
+            <SectionHeader titel='Flash Sales' miniTitle='Today’s' btn='btn' time={true} />
 
             <Swiper
                 
