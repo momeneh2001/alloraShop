@@ -10,7 +10,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // import required modules
-// import { Pagination,Navigation } from 'swiper/modules';
+import { Pagination,Navigation } from 'swiper/modules';
 
 function FlashSaleSection() {
     return (
@@ -18,12 +18,21 @@ function FlashSaleSection() {
             <SectionHeader titel='Flash Sales' miniTitle='Today’s' btn='btn' />
 
             <Swiper
-                slidesPerView={4.5}
-                spaceBetween={1}
+                
+                spaceBetween={16}
+                breakpoints={{
+                    0: { slidesPerView: 1.3 },
+                    480: { slidesPerView: 1.6 },
+                    640: { slidesPerView: 2.2 },
+                    768: { slidesPerView: 2.5 },
+                    1024: { slidesPerView: 3.4 },
+                    1280: { slidesPerView: 4.2 },
+                    1440: { slidesPerView: 4.4 },
+                  }}
                 pagination={{
                     clickable: true,
                 }}
-                // modules={[Pagination, Navigation]}
+                // modules={[Pagination]}
                 className="mySwiper"
             >
                 <SwiperSlide>
@@ -56,7 +65,7 @@ function FlashSaleSection() {
             </Swiper>
 
             <div className='w-full flex justify-center items-center border-b-2 mb-20'>
-                <button className='bg-red-600 text-white my-16 py-4 px-12 rounded-md'>View All Products</button>
+                <button className='bg-red-600 text-white my-16 text-sm px-4 py-2 md:text-base lg:text-lg xl:text-xl md:px-5 md:py-2 lg:px-9 lg:py-3 xl:px-12 xl:py-4  rounded-md'>View All Products</button>
             </div>
         </section>
     )
