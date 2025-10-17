@@ -1,4 +1,5 @@
 ""
+import Footer from "@/components/modules/footer/Footer";
 import Navbar from "@/components/modules/navbar/Navbar";
 import BestSellingSection from "@/components/template/bestSellingSection/BestSellingSection";
 import CategorySection from "@/components/template/categorySection/CategorySection";
@@ -23,6 +24,7 @@ export default function Home() {
       <ExploreSection/>
       <LatestProductsSection/>
       <ServicesSection/>
+      <Footer/>
     </main>
    
   </>
