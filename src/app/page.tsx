@@ -5,6 +5,7 @@ import CategorySection from "@/components/template/categorySection/CategorySecti
 import ExploreSection from "@/components/template/exploreSection/ExploreSection";
 import FlashSaleSection from "@/components/template/flashSaleSection/FlashSaleSection";
 import HeroSection from "@/components/template/heroSection/HeroSection";
+import LatestProductsSection from "@/components/template/latestProductsSection/LatestProductsSection";
 import PromoSection from "@/components/template/promoSection/PromoSection";
 
 
@@ -19,6 +20,7 @@ export default function Home() {
       <BestSellingSection/>
       <PromoSection/>
       <ExploreSection/>
+      <LatestProductsSection/>
     </main>
    
   </>
