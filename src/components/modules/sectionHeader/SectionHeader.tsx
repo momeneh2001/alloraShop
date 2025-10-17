@@ -74,7 +74,7 @@ function SectionHeader({ miniTitle, titel, btn,time }: (sectionHeaderProps)) {
                         btn ? (
                             <button className="py-2 px-5 lg:py-2 xl:py-3 xxl:py-4 lg:px-8 xl:px-10 xxl:px-12 text-xs lg:text-sm xl:text-base xxl:text-lg bg-red-600 rounded-md text-white">View All</button>
                         ) : (
-                            <div className="hidden flex gap-2">
+                            <div className="hidden  gap-2">
                                 <div className="w-8 h-8 bg-neutral-100 flex items-center justify-center rounded-full">
                                     <FaArrowLeftLong className=" " />
                                 </div>
