@@ -5,7 +5,7 @@ import React from 'react'
 
 function LatestProductsSection() {
     return (
-        <section className='container mb-24'>
+        <section className='container mb-36'>
             <SectionHeader miniTitle='Featured' titel='New Arrival' />
 
             <div className='mx-auto w-[85%] max-w-[1440px] pt-11'>

@@ -7,6 +7,7 @@ import FlashSaleSection from "@/components/template/flashSaleSection/FlashSaleSe
 import HeroSection from "@/components/template/heroSection/HeroSection";
 import LatestProductsSection from "@/components/template/latestProductsSection/LatestProductsSection";
 import PromoSection from "@/components/template/promoSection/PromoSection";
+import ServicesSection from "@/components/template/servicesSection/ServicesSection";
 
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <PromoSection/>
       <ExploreSection/>
       <LatestProductsSection/>
+      <ServicesSection/>
     </main>
    
   </>
