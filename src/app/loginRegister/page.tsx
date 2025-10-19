@@ -18,7 +18,7 @@ function loginRegister() {
         <>
             <Navbar />
             <section className="mt-16 mb-36 flex flex-col-reverse md:flex-row items-center justify-center gap-6 md:gap-10 px-4 sm:px-8">
-    
+            
                 <div className="w-full  flex justify-center">
                     <Image
                         width={850}
@@ -30,14 +30,14 @@ function loginRegister() {
                     />
                 </div>
 
-               
+
                 <div className="w-full md:w-[500px]  flex flex-col items-center justify-center p-6 ">
-                     {authType === "login" ? (
+                    {authType === "login" ? (
                         <Login showRegisterForm={showRegisterForm} />
                     ) : (
                         <Register showLoginForm={showLoginForm} />
-                    )} 
-                    
+                    )}
+
                 </div>
             </section>
             <Footer />

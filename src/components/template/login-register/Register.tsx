@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { cache, useState } from 'react'
 import { FcGoogle, FcSms } from "react-icons/fc";
+import swal from 'sweetalert';
+import { validateUserData } from "../../../utiles/validations/userValidation.client";
 
 
 interface RegisterProps {
@@ -9,6 +11,75 @@ interface RegisterProps {
 
 
 function Register({ showLoginForm }: RegisterProps) {
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [password, setPassword] = useState("")
+
+    const signUp = async () => {
+        // validation
+        const validationError = validateUserData({ name, email, phone, password });
+        if (validationError) {
+            return swal({
+                title: validationError,
+                icon: "error",
+                buttons: {
+                    confirm: {
+                        text: "OK",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                }
+            });
+        }
+
+        const user = { name, phone, email, password }
+
+        try {
+            const res = await fetch('/api/auth/signup', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user),
+            });
+            if (res.status === 201) {
+                swal({
+                    title: "Account created successfully!",
+                    icon: "success",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+            }
+        } catch (err) {
+            // console.error("Signup error:", err);
+            swal({
+                title: "Something went wrong!",
+                icon: "error",
+                buttons: {
+                    confirm: {
+                        text: "OK",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                }
+            });
+
+        }
+
+    }
+
     return (
         <div className="w-full sm:w-[500px]  flex flex-col items-center justify-center px-4 sm:px-8 py-8">
             <div className="flex flex-col justify-center items-center gap-6 sm:gap-8">
@@ -17,12 +88,13 @@ function Register({ showLoginForm }: RegisterProps) {
 
                 <div className="flex flex-col gap-6 sm:gap-5 w-full">
                     <form className="flex flex-col gap-6 sm:gap-8 w-full child:h-10 child:border-b child:outline-none child:border-gray-400 child:bg-transparent child:focus:border-red-500 transition">
-                        <input placeholder="Username" type="text" />
-                        <input placeholder="Email or Phone Number" type="text" />
-                        <input placeholder="Password" type="password" />
+                        <input value={name} onChange={event => setName(event.target.value)} placeholder="Username" type="text" />
+                        <input value={email} onChange={event => setEmail(event.target.value)} placeholder="Email " type="text" />
+                        <input value={phone} onChange={event => setPhone(event.target.value)} placeholder="Phone Number" type="text" />
+                        <input value={password} onChange={event => setPassword(event.target.value)} placeholder="Password" type="password" />
                     </form>
 
-                    <button className="bg-red-600 text-white text-center w-full py-3 sm:py-4 rounded-md hover:bg-red-700 transition">Create Account</button>
+                    <button onClick={signUp} className="bg-red-600 text-white text-center w-full py-3 sm:py-4 rounded-md hover:bg-red-700 transition">Create Account</button>
                     <button className="flex items-center gap-2 justify-center rounded-md border border-gray-400 py-3 sm:py-4 hover:bg-gray-50 transition">
                         <FcGoogle className="w-6 h-6" /> <span>Sign up with Google</span>
                     </button>
