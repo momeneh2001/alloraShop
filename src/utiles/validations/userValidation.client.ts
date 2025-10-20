@@ -21,7 +21,13 @@ export const validateUserName = (name: string): string | null => {
   
   export const validateUserPassword = (password: string): string | null => {
     if (!password) return "Password is required";
-    if (password.length < 6) return "Password must be at least 6 characters";
+  
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  
+    if (!passwordRegex.test(password)) {
+      return "Password must be at least 8 characters, include uppercase, lowercase, number, and special character";
+    }
     return null;
   };
   

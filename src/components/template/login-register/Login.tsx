@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FcSms } from "react-icons/fc";
 import Sms from './Sms';
 import Link from 'next/link';
+import { validateEmail, validatePassword } from '@/utiles/validations/userValidation.server';
 
 interface LoginProps {
     showRegisterForm: () => void;
@@ -10,7 +11,137 @@ interface LoginProps {
 function Login({ showRegisterForm }: (LoginProps)) {
 
     const [isLoginWithOTP, setIsLoginWithOTP] = useState(false)
-    
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const loginPass = async () => {
+        try {
+            // --- validation ---
+            if (!email) {
+                swal({
+                    text: "Please enter your email ",
+                    icon: "warning",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+                return;
+            }
+            const isvalidEmail = validateEmail(email)
+            if (isvalidEmail) {
+                swal({
+                    text: "Email NOT valid",
+                    icon: "warning",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+                return;
+            }
+            if (!password) {
+                swal({
+                    text: "Please enter your Password ",
+                    icon: "warning",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+                return;
+            }
+            const isvalidPassword = validatePassword(password)
+            if (isvalidPassword) {
+                swal({
+                    text: "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
+                    icon: "warning",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+                return;
+            }
+            // --- fetch login ---
+            const user = { email, password }
+
+            const res = await fetch('/api/auth/signin', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user),
+            });
+
+            if (res.status === 200) {
+                setEmail("")
+                setPassword("")
+                swal({
+                    title: "Signin successfully!",
+                    icon: "success",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+            } else if (res.status === 404 || res.status === 401) {
+                swal({
+                    text: "User Not found !!!",
+                    icon: "error",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+            } else {
+                swal({
+                    text: "Something went wrong!",
+                    icon: "error",
+                    buttons: { confirm: { text: "OK", value: true, visible: true, closeModal: true } },
+                });
+            }
+
+            
+        }catch (err) {
+                // console.error("Login error:", err);
+                swal({
+                  text: "Something went wrong!",
+                  icon: "error",
+                  buttons: { confirm: { text: "OK", value: true, visible: true, closeModal: true } },
+                });
+        }
+    }
 
     return (
         <>
@@ -25,25 +156,25 @@ function Login({ showRegisterForm }: (LoginProps)) {
                                 Enter your details below
                             </p>
 
-                            <div className="flex flex-col gap-6 sm:gap-8 w-full">      
+                            <div className="flex flex-col gap-6 sm:gap-8 w-full">
 
                                 <form className="flex flex-col gap-6 sm:gap-8 w-full child:h-10 child:border-b child:outline-none child:border-gray-400 child:bg-transparent child:focus:border-green-500 transition">
-                                    <input placeholder="Email or Phone Number" type="text" />
-                                    <input placeholder="Password" type="password" />
+                                    <input value={email} onChange={event => setEmail(event.target.value)} placeholder="Email" type="text" />
+                                    <input value={password} onChange={event => setPassword(event.target.value)} placeholder="Password" type="password" />
                                 </form>
 
                                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 w-full mt-2">
-                                    <button className="bg-green-600 text-white text-center w-full sm:w-[143px] py-3 sm:py-4 rounded-md hover:bg-green-700 transition">
+                                    <button onClick={loginPass} className="bg-green-600 text-white text-center w-full sm:w-[143px] py-3 sm:py-4 rounded-md hover:bg-green-700 transition">
                                         Log In
                                     </button>
-                                    <button onClick={()=>setIsLoginWithOTP(true)} className="flex items-center gap-2 justify-center rounded-md border border-gray-400 w-full sm:w-auto px-4 py-3 sm:py-4 hover:bg-gray-50 transition">
+                                    <button onClick={() => setIsLoginWithOTP(true)} className="flex items-center gap-2 justify-center rounded-md border border-gray-400 w-full sm:w-auto px-4 py-3 sm:py-4 hover:bg-gray-50 transition">
                                         <FcSms className="w-6 h-6" /> <span>Log in with SMS</span>
                                     </button>
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 w-full mt-2">
                                     <span onClick={showRegisterForm} className="text-red-500 cursor-pointer hover:underline text-sm sm:text-base">
-                                        Create Account 
+                                        Create Account
                                     </span>
                                     <Link href='/forgotPassword' className="text-blue-600 cursor-pointer hover:underline text-sm sm:text-base">
                                         Forget Password?

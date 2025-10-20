@@ -16,7 +16,16 @@ function Register({ showLoginForm }: RegisterProps) {
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
 
-    const signUp = async () => {
+    const signUp = async (
+        name: string,
+        email: string,
+        phone: string,
+        password: string,
+        setName: (val: string) => void,
+        setEmail: (val: string) => void,
+        setPhone: (val: string) => void,
+        setPassword: (val: string) => void
+    ) => {
         // validation
         const validationError = validateUserData({ name, email, phone, password });
         if (validationError) {
@@ -46,9 +55,42 @@ function Register({ showLoginForm }: RegisterProps) {
                 body: JSON.stringify(user),
             });
             if (res.status === 201) {
+                setName("")
+                setEmail("")
+                setPassword("")
+                setPhone("")
                 swal({
                     title: "Account created successfully!",
                     icon: "success",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+            } else if (res.status === 422) {
+                swal({
+                    title: "User already exists!",
+                    text: "Please try signing in or use a different email.",
+                    icon: "warning",
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+            } else {
+                swal({
+                    title: "Something went wrong!",
+                    icon: "error",
                     buttons: {
                         confirm: {
                             text: "OK",
@@ -94,7 +136,11 @@ function Register({ showLoginForm }: RegisterProps) {
                         <input value={password} onChange={event => setPassword(event.target.value)} placeholder="Password" type="password" />
                     </form>
 
-                    <button onClick={signUp} className="bg-red-600 text-white text-center w-full py-3 sm:py-4 rounded-md hover:bg-red-700 transition">Create Account</button>
+                    <button 
+                     onClick={() =>
+                        signUp(name, email, phone, password, setName, setEmail, setPhone, setPassword)
+                      }
+                    className="bg-red-600 text-white text-center w-full py-3 sm:py-4 rounded-md hover:bg-red-700 transition">Create Account</button>
                     <button className="flex items-center gap-2 justify-center rounded-md border border-gray-400 py-3 sm:py-4 hover:bg-gray-50 transition">
                         <FcGoogle className="w-6 h-6" /> <span>Sign up with Google</span>
                     </button>
