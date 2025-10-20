@@ -17,9 +17,13 @@ import { FiShoppingBag } from "react-icons/fi";
 import MobileMenu from '../mobileMenu/MobileMenu';
 import { FaRegCircleXmark } from "react-icons/fa6";
 
-function Navbar() {
-    const [isDropdownOpen,setIsDropdownOpen]=useState(false);
-    const [isSideBarOpen,setIsSideBarOpen]=useState(false);
+interface NavbarProps {
+    isLogin?: boolean
+}
+
+function Navbar({ isLogin }: NavbarProps) {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
     return (
         <header className='border-b-2'>
@@ -37,7 +41,7 @@ function Navbar() {
                     </div>
 
                     {/* set onclick for mobile nav */}
-                    <HiOutlineBars3BottomLeft onClick={()=>{setIsSideBarOpen((prev)=>(!prev))}} className=' w-6 h-6 md:hidden' />
+                    <HiOutlineBars3BottomLeft onClick={() => { setIsSideBarOpen((prev) => (!prev)) }} className=' w-6 h-6 md:hidden' />
                     {/* Navigation */}
                     <nav className='hidden md:block'>
                         <ul className='flex gap-12 child:font-light text-gray-700 child:text-base'>
@@ -79,49 +83,57 @@ function Navbar() {
                             </div>
                         </Link>
 
-
+                        {
+                            isLogin ? (
+                                <div className='relative z-20'>
+                                    <HiOutlineUser onClick={() => { setIsDropdownOpen((prev) => (!prev)) }} className='hover:bg-red-600  hover:text-white  w-8 h-8  p-1 rounded-full cursor-pointer group ' />
+                                    {
+                                        isDropdownOpen && (
+                                            <div className=" absolute glass-card right-0 w-64 child:items-center   flex-col space-y-4 text-zinc-700 transition-all  p-6 rounded-md   ">
+                                                <Link href="#" className='flex  gap-2'>
+                                                    <HiOutlineUser className='w-6 h-6' />
+                                                    <span>Manage My Account</span>
+                                                </Link>
+                                                <Link href="#" className='flex  gap-2'>
+                                                    <FiShoppingBag className='w-6 h-6' />
+                                                    <span>My Order</span>
+                                                </Link>
+                                                <Link href="#" className='flex gap-2'>
+                                                    <FaRegCircleXmark className='w-6 h-6' />
+                                                    <span>My Cancellations</span>
+                                                </Link>
+                                                <Link href="#" className='flex gap-2'>
+                                                    <HiOutlineStar className='w-6 h-6' />
+                                                    <span>My Reviews</span>
+                                                </Link>
+                                                <Link href="#" className='flex gap-2'>
+                                                    <HiOutlineArrowLeftStartOnRectangle className='w-6 h-6' />
+                                                    <span>Logout</span>
+                                                </Link>
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                            ) : (
+                                <Link href="/loginRegister">
+                                    <HiOutlineArrowLeftEndOnRectangle className='w-6 h-6 ' />
+                                </Link>
+                            )
+                        }
                         {/* user icon  */}
-                        <div className='relative z-20'>
-                            <HiOutlineUser onClick={()=>{setIsDropdownOpen((prev)=>(!prev))}} className='hover:bg-red-600  hover:text-white  w-8 h-8  p-1 rounded-full cursor-pointer group ' />
-                            {
-                                isDropdownOpen && (
-                                    <div className=" absolute glass-card right-0 w-64 child:items-center   flex-col space-y-4 text-zinc-700 bg-red-200   transition-all  p-6 rounded-md   ">
-                                <div className='flex  gap-2'>
-                                    <HiOutlineUser className='w-6 h-6' />
-                                    <Link href="#">Manage My Account</Link>
-                                </div>
-                                <div className='flex  gap-2'>
-                                    <FiShoppingBag className='w-6 h-6' />
-                                    <Link href="#">My Order</Link>
-                                </div>
-                                <div className='flex gap-2'>
-                                    <FaRegCircleXmark className='w-6 h-6' />
-                                    <Link href="#">My Cancellations</Link>
-                                </div>
-                                <div className='flex gap-2'>
-                                    <HiOutlineStar className='w-6 h-6' />
-                                    <Link href="#">My Reviews</Link>
-                                </div>
-                                <div className='flex gap-2'>
-                                    <HiOutlineArrowLeftStartOnRectangle className='w-6 h-6' />
-                                    <Link href="#">Logout</Link>
-                                </div>
-                            </div>
-                                )
-                            }
-                        </div>
 
-                        {/* <HiOutlineArrowLeftEndOnRectangle className='w-6 h-6 cursor-pointer' /> */}
+
+
                     </div>
                 </div>
             </div>
 
             {
                 isSideBarOpen && (
-                    <MobileMenu 
-                    
-                    isSideBarOpen={isSideBarOpen}
-                    setIsSideBarOpen={setIsSideBarOpen}  />
+                    <MobileMenu
+
+                        isSideBarOpen={isSideBarOpen}
+                        setIsSideBarOpen={setIsSideBarOpen} />
                 )
             }
         </header>
