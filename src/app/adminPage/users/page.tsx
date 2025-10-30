@@ -13,12 +13,12 @@ interface User {
 const Page = async () => {
   await connectToDB();
 
-  // دریافت کاربران و تبدیل _id به string
   const usersFromDB = await UserModel.find({}).lean();
   const users: User[] = usersFromDB.map(user => ({
     _id: user._id.toString(),
     name: user.name,
     email: user.email,
+    phone: user.phone,
     role: user.role,
   }));
 

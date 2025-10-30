@@ -7,6 +7,7 @@ interface User {
     _id: string;
     name: string;
     email?: string;
+    phone?: string;
     role: string;
 }
 
@@ -16,8 +17,7 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ users }) => {
 
-    const router=useRouter();
-   
+    const router = useRouter();
 
     const ChangeRole = async (userID: string) => {
         try {
@@ -45,6 +45,44 @@ const Table: React.FC<TableProps> = ({ users }) => {
         }
     };
 
+    const banUser = async (email: string, phone: string) => {
+        console.log('phone', phone)
+        console.log('email', email)
+        // Validation 
+        if (!email || !phone) {
+            swal("Warning", "Email and phone are required", "warning");
+            return;
+        }
+
+        const confirm = await swal({
+            title: "Are you sure?",
+            text: `Do you want to ban the user with email: ${email}?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        });
+
+        if (!confirm) return; // اگر کاربر Cancel کرد، ادامه نمی‌دهیم
+
+        try {
+            const res = await fetch("/api/user/ban", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, phone }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                await swal("Success", "User has been banned", "success");
+               
+            } else {
+                swal("Error", data.message || "Failed to ban user", "error");
+            }
+        } catch (err: any) {
+            swal("Error", err.message || "Something went wrong", "error");
+        }
+    };
 
     return (
         <main className="p-6">
@@ -62,6 +100,7 @@ const Table: React.FC<TableProps> = ({ users }) => {
                             <th className="py-3 px-6 text-center">ID</th>
                             <th className="py-3 px-6 text-center">Name</th>
                             <th className="py-3 px-6 text-center">Email</th>
+                            <th className="py-3 px-6 text-center">phone</th>
                             <th className="py-3 px-6 text-center">Role</th>
                             <th className="py-3 px-6 text-center">Edit</th>
                             <th className="py-3 px-6 text-center">Change Role</th>
@@ -78,6 +117,7 @@ const Table: React.FC<TableProps> = ({ users }) => {
                                 <td className="py-2 px-4 text-center">{index + 1}</td>
                                 <td className="py-2 px-4 text-center">{user.name}</td>
                                 <td className="py-2 px-4 text-center">{user.email || "No email"}</td>
+                                <td className="py-2 px-4 text-center">{user.phone || "No phone"}</td>
                                 <td className="py-2 px-4 text-center">
                                     {user.role === "USER" ? "Regular User" : "Admin"}
                                 </td>
@@ -92,7 +132,7 @@ const Table: React.FC<TableProps> = ({ users }) => {
                                     </button>
                                 </td>
                                 <td className="py-2 px-4 text-center">
-                                    <button className="bg-red-700 text-white text-sm px-3 py-1 rounded hover:bg-red-800 transition w-full">
+                                    <button onClick={() => banUser(user.email, user.phone)} className="bg-red-700 text-white text-sm px-3 py-1 rounded hover:bg-red-800 transition w-full">
                                         Ban
                                     </button>
                                 </td>
