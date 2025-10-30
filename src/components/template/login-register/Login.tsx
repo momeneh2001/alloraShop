@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FcSms } from "react-icons/fc";
 import Sms from './Sms';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 import { validateEmail, validatePassword } from '@/utiles/validations/userValidation.server';
 
 interface LoginProps {
@@ -14,6 +15,7 @@ function Login({ showRegisterForm }: (LoginProps)) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const router = useRouter();
     const loginPass = async () => {
         try {
             // --- validation ---
@@ -109,7 +111,11 @@ function Login({ showRegisterForm }: (LoginProps)) {
                             closeModal: true
                         }
                     }
-                });
+                }).then((value) => {
+                    if (value) {
+                      router.push("/"); // ✅ ریدایرکت به صفحه اصلی بعد از زدن OK
+                    }
+                  });
             } else if (res.status === 404 || res.status === 401) {
                 swal({
                     text: "User Not found !!!",

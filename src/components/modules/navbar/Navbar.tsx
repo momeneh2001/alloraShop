@@ -52,10 +52,10 @@ function Navbar({ isLogin }: NavbarProps) {
                                 <Link href='/'>Discounts</Link>
                             </li>
                             <li>
-                                <Link href='/'>Contact</Link>
+                                <Link href='/contact'>Contact</Link>
                             </li>
                             <li>
-                                <Link href='/'>About</Link>
+                                <Link href='/about'>About</Link>
                             </li>
                         </ul>
                     </nav>
@@ -76,7 +76,7 @@ function Navbar({ isLogin }: NavbarProps) {
                                 <span >4</span>
                             </div>
                         </Link>
-                        <Link className='relative' href="/">
+                        <Link className='relative' href="/wshlist">
                             <HiOutlineHeart className='w-6 h-6 cursor-pointer' />
                             <div className='absolute w-4 h-4 top-0 -right-[4px] bg-red-600 rounded-full text-xs flex justify-center items-center text-white'>
                                 <span >4</span>

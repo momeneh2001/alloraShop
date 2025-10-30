@@ -44,7 +44,6 @@ const Table: React.FC<TableProps> = ({ users }) => {
             swal("Error", err.message || "Something went wrong", "error");
         }
     };
-
     const banUser = async (email: string, phone: string) => {
         console.log('phone', phone)
         console.log('email', email)
