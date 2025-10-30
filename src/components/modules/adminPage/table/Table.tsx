@@ -1,4 +1,7 @@
+"use client"
+import { useRouter } from "next/navigation";
 import React from "react";
+import swal from "sweetalert";
 
 interface User {
     _id: string;
@@ -12,6 +15,37 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ users }) => {
+
+    const router=useRouter();
+   
+
+    const ChangeRole = async (userID: string) => {
+        try {
+            if (!userID) {
+                swal("Warning", "User ID is required", "warning");
+                return;
+            }
+            const res = await fetch("/api/user/role", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id: userID }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                swal("Error", data.message || "Failed to update role", "error");
+                return;
+            }
+            swal("Success", "User role changed successfully!", "success");
+            router.refresh();
+            // return data;
+        } catch (err: any) {
+            swal("Error", err.message || "Something went wrong", "error");
+        }
+    };
+
+
     return (
         <main className="p-6">
             {/* Table Title */}
@@ -53,7 +87,7 @@ const Table: React.FC<TableProps> = ({ users }) => {
                                     </button>
                                 </td>
                                 <td className="py-2 px-4 text-center">
-                                    <button className="bg-black text-white text-sm px-3 py-1 rounded hover:bg-gray-800 transition w-full">
+                                    <button onClick={() => ChangeRole(user._id)} className="bg-black text-white text-sm px-3 py-1 rounded hover:bg-gray-800 transition w-full">
                                         Change Role
                                     </button>
                                 </td>
