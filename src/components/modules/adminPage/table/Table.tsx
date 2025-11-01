@@ -57,7 +57,7 @@ const Table: React.FC<TableProps> = ({ users }) => {
             title: "Are you sure?",
             text: `Do you want to ban the user with email: ${email}?`,
             icon: "warning",
-            buttons: true,
+            buttons: [true],
             dangerMode: true,
         });
 
@@ -131,7 +131,7 @@ const Table: React.FC<TableProps> = ({ users }) => {
                                     </button>
                                 </td>
                                 <td className="py-2 px-4 text-center">
-                                    <button onClick={() => banUser(user.email, user.phone)} className="bg-red-700 text-white text-sm px-3 py-1 rounded hover:bg-red-800 transition w-full">
+                                    <button onClick={() => banUser(user.email || "", user.phone || "")} className="bg-red-700 text-white text-sm px-3 py-1 rounded hover:bg-red-800 transition w-full">
                                         Ban
                                     </button>
                                 </td>

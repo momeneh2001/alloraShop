@@ -60,7 +60,7 @@ const Sidebar = () => {
             <FaComments />
             Comments
           </Link>
-          <Link href="/p-admin/tickets" className="flex items-center gap-3 hover:text-slate-300">
+          <Link href="/adminPage/tickets" className="flex items-center gap-3 hover:text-slate-300">
             <MdSms />
             Tickets
           </Link>

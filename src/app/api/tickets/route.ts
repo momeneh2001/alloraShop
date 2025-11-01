@@ -1,6 +1,5 @@
 import connectToDB from "../../../../configs/db";
 import { authUser } from "@/utiles/authUser";
-import UserModel from "../../../../models/User";
 import Ticket from "../../../../models/Ticket";
 
 export async function POST(req: Request) {
