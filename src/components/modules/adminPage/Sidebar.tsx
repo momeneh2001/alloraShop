@@ -44,11 +44,11 @@ const Sidebar = () => {
         </div>
 
         <ul className="flex flex-col gap-6 py-8 px-3 text-base">
-          <Link href="/p-admin" className="flex items-center gap-3 hover:text-slate-300">
+          <Link href="/adminPage" className="flex items-center gap-3 hover:text-slate-300">
             <ImReply />
             Dashboard
           </Link>
-          <Link href="/adminPage/users" className="flex items-center gap-3 hover:text-slate-300">
+          <Link href="/adminPage/products" className="flex items-center gap-3 hover:text-slate-300">
             <FaShoppingBag />
             Products
           </Link>
@@ -56,7 +56,7 @@ const Sidebar = () => {
             <FaUsers />
             Users
           </Link>
-          <Link href="/p-admin/comments" className="flex items-center gap-3 hover:text-slate-300">
+          <Link href="/adminPage/comments" className="flex items-center gap-3 hover:text-slate-300">
             <FaComments />
             Comments
           </Link>
@@ -64,7 +64,7 @@ const Sidebar = () => {
             <MdSms />
             Tickets
           </Link>
-          <Link href="/p-admin/discount" className="flex items-center gap-3 hover:text-slate-300">
+          <Link href="/adminPage/discount" className="flex items-center gap-3 hover:text-slate-300">
             <MdOutlineAttachMoney />
             Discounts
           </Link>
