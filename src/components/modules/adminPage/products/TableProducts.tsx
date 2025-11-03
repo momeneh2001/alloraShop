@@ -9,11 +9,6 @@ interface ProductTableProps {
 const TableProducts: React.FC<ProductTableProps> = ({ products }) => {
     const router = useRouter();
 
-    // const products = [
-    //     { _id: "1", name: "Product A", price: 1_200_000, score: 4.5, stock: 25, category: "Electronics" },
-    //     { _id: "2", name: "Product B", price: 85000, score: 4.2, stock: 0, category: "Clothing" },
-    //     { _id: "3", name: "Product C", price: 99000, score: 3.9, stock: 10, category: "Books" },
-    // ];
 
     return (
         <div className="px-6 py-10">

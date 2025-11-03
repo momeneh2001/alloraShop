@@ -9,14 +9,11 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
-const images = [
-  "/images/Frame 894.png",
-  "/images/Frame 894.png",
-  "/images/Frame 894.png",
-  "/images/Frame 894.png",
-];
+type GalleryProps = {
+  images: string[]; 
+};
 
-const Gallery = () => {
+const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   return (

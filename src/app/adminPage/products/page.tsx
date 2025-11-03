@@ -14,15 +14,15 @@ const page = async () => {
 
       <AddProduct />
 
-      {/* {products.length === 0 ? (
+      {products.length === 0 ? (
         <p className="bg-red-600 text-white text-3xl font-bold text-center mt-12 py-4 rounded-lg shadow-lg">
           NO Products
         </p>
-      ) : ( */}
+      ) : (
       <ProductTable
         products={JSON.parse(JSON.stringify(products))}
       />
-      {/* )} */}
+      )}
     </main>
   )
 }

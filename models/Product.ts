@@ -42,7 +42,7 @@ const ProductSchema = new Schema<IProduct>(
     },
     score: {
       type: Number,
-      default: 2,
+      default: 2.0,
       min: 0,
       max: 5,
     },
