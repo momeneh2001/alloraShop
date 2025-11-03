@@ -20,7 +20,7 @@ const generateAccessToken = (data: object): string => {
     if (!process.env.AccessTokenSecretKey) {
         throw new Error("ACCESS_TOKEN_SECRET is not defined in .env");
     }
-    const token = sign({ ...data }, process.env.AccessTokenSecretKey, { expiresIn: "15m" });
+    const token = sign({ ...data }, process.env.AccessTokenSecretKey, { expiresIn: "15d" });
     return token
 };
 
