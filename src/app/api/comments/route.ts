@@ -15,15 +15,22 @@ export async function POST(req: Request) {
   try {
     await connectToDB();
 
-    const { username, email, body, score, productID } = (await req.json()) as CommentRequestBody;
+    const { username, email, body, score, productID } =
+      (await req.json()) as CommentRequestBody;
 
     // Validation
     if (!username || !email || !body || !score || !productID) {
-      return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+      return NextResponse.json(
+        { message: "All fields are required" },
+        { status: 400 }
+      );
     }
 
     if (score < 1 || score > 5) {
-      return NextResponse.json({ message: "Score must be between 1 and 5" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Score must be between 1 and 5" },
+        { status: 400 }
+      );
     }
 
     // Create Comment
@@ -32,7 +39,7 @@ export async function POST(req: Request) {
       email,
       body,
       score,
-      product: productID, // ← حتماً 'product' باشد
+      product: productID,
     });
 
     // Push comment into Product
@@ -46,7 +53,10 @@ export async function POST(req: Request) {
     );
   } catch (err: any) {
     console.error(err);
-    return NextResponse.json({ message: err.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { message: err.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -54,12 +64,14 @@ export async function GET() {
   try {
     await connectToDB();
 
-    // فقط کامنت‌های تایید شده
     const comments = await CommentModel.find({ isAccept: true }).select("-__v");
 
     return NextResponse.json(comments, { status: 200 });
   } catch (err: any) {
     console.error(err);
-    return NextResponse.json({ message: err.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { message: err.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

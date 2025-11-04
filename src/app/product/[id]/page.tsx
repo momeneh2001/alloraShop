@@ -8,7 +8,7 @@ import Gallery from '@/components/template/product/Gallery'
 import { authUser } from '@/utiles/authUser'
 import productModel from '../../../../models/Product'
 import connectToDB from '../../../../configs/db'
-// import commentModel from '../../../../models/Comment' 
+import '../../../../models/Comment' 
 
 type ProductPageProps = {
   params: {
@@ -28,10 +28,10 @@ interface IComment {
 const Product = async ({ params }: ProductPageProps) => {
   connectToDB()
   const user = await authUser()
-  
+
   const productID = params.id;
-  const product = await productModel.findOne({ _id: productID }).populate("comments");
- 
+  const product = await productModel.findOne({ _id: productID }).populate("comments")
+
   const productData = JSON.parse(JSON.stringify(product))
   const acceptedComments = productData.comments?.filter(
     (comment: IComment) => comment.isAccept === true
