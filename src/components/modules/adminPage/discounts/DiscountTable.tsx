@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
+import { IDiscount } from "../../../../../models/Discount";
 
-function Table() {
-  const discounts = [
-    { _id: 1, code: "NEWYEAR25", percent: 25, maxUse: 100, uses: 80 },
-    { _id: 2, code: "SUMMER15", percent: 15, maxUse: 50, uses: 50 },
-    { _id: 3, code: "WELCOME10", percent: 10, maxUse: 200, uses: 40 },
-    { _id: 4, code: "VIP50", percent: 50, maxUse: 5, uses: 5 },
-  ];
+interface DiscountTableProps {
+  discounts: IDiscount[];
+}
 
+
+const DiscountTable: React.FC<DiscountTableProps> = ({ discounts }) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border-collapse text-center shadow-md rounded-xl overflow-hidden">
@@ -24,14 +23,14 @@ function Table() {
         </thead>
         <tbody>
           {discounts.map((discount, index) => {
-            const rowColor =
-              discount.uses === discount.maxUse
-                ? "bg-red-50 hover:bg-red-100"
-                : "bg-green-50 hover:bg-green-100";
+            const isFull = discount.uses >= discount.maxUse;
+            const rowColor = isFull
+              ? "bg-red-50 hover:bg-red-100"
+              : "bg-green-50 hover:bg-green-100";
 
             return (
               <tr
-                key={discount._id}
+                key={String(discount._id)}
                 className={`transition ${rowColor} border-b border-gray-200`}
               >
                 <td className="py-2 px-4 font-semibold text-gray-700">
@@ -53,6 +52,6 @@ function Table() {
       </table>
     </div>
   );
-}
+};
 
-export default Table;
+export default DiscountTable;
