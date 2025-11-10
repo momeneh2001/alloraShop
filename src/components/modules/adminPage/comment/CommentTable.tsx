@@ -56,79 +56,91 @@ export default function DataTable({ comments }: DataTableProps) {
                 <span className="bg-white pl-6 relative z-10">Comments List</span>
             </h2>
 
-            <div className="mt-10 overflow-x-auto bg-gray-100 p-6 rounded-lg">
+            <div className="mt-10 overflow-x-auto bg-gray-100  rounded-lg">
                 <table className="min-w-full border-collapse text-center">
                     <thead>
-                        <tr className="bg-gray-200">
-                            {[
-                                "ID",
-                                "User",
-                                "Email",
-                                "Score",
-                                "Product",
-                                "Date",
-                                "View",
-                                "Delete",
-                                "Approve / Reject",
-                                "Reply",
-                                "Ban",
-                            ].map((th) => (
-                                <th key={th} className="p-2">{th}</th>
-                            ))}
+                        <tr className="bg-gray-200 text-gray-700">
+                            <th className="p-2">ID</th>
+                            <th className="p-2">User</th>
+                            <th className="p-2">Email</th>
+                            <th className="p-2">Score</th>
+                            <th className="p-2">Product</th>
+                            <th className="p-2">Date</th>
+                            <th className="p-2">View</th>
+                            <th className="p-2">Delete</th>
+                            <th className="p-2">Approve / Reject</th>
+                            <th className="p-2">Reply</th>
+                            <th className="p-2">Ban</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {comments.map((comment, index) => (
-                            <tr
-                                key={comment._id}
-                                className="bg-white even:bg-gray-50 hover:bg-gray-200"
-                            >
-                                <td className={`p-2 ${comment.isAccept ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}>
-                                    {index + 1}
-                                </td>
-                                <td className="p-2">{comment.username}</td>
-                                <td className="p-2">{comment.email}</td>
-                                <td className="p-2">{comment.score}</td>
-                                <td className="p-2">{comment.productID?.name}</td>
-                                <td className="p-2">{new Date(comment.date).toLocaleDateString()}</td>
-                                <td className="p-2">
-                                    <button
-                                        onClick={() => showCommentBody(comment.body)}
-                                        className="bg-black text-white px-3 py-1 rounded w-full"
-                                    >
-                                        View
-                                    </button>
-                                </td>
-                                <td className="p-2">
-                                    <button className="bg-red-900 text-white px-3 py-1 rounded w-full">Delete</button>
-                                </td>
-                                <td className="p-2">
-                                    {comment.isAccept ? (
+                        {comments.map((comment, index) => {
+                            const rowColor = comment.isAccept
+                                ? "bg-green-100 hover:bg-green-200"
+                                : "bg-red-100 hover:bg-red-200";
+
+                            return (
+                                <tr
+                                    key={comment._id}
+                                    className={`transition ${rowColor} border-b border-gray-200`}
+                                >
+                                    <td className="p-2 font-semibold text-gray-700">{index + 1}</td>
+                                    <td className="p-2">{comment.username}</td>
+                                    <td className="p-2 text-gray-600">{comment.email}</td>
+                                    <td className="p-2">{comment.score}</td>
+                                    <td className="p-2">{comment.product.name}</td>
+                                    <td className="p-2">{new Date(comment.date).toLocaleDateString()}</td>
+
+                                    <td className="p-2">
                                         <button
-                                            onClick={() => rejectComment(comment._id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded w-full"
+                                            onClick={() => showCommentBody(comment.body)}
+                                            className="bg-black text-white text-sm px-3 py-1 rounded w-full hover:bg-gray-800 transition"
                                         >
-                                            Reject
+                                            View
                                         </button>
-                                    ) : (
-                                        <button
-                                            onClick={() => acceptComment(comment._id)}
-                                            className="bg-green-500 text-white px-3 py-1 rounded w-full"
-                                        >
-                                            Approve
+                                    </td>
+
+                                    <td className="p-2">
+                                        <button className="bg-red-700 text-white text-sm px-3 py-1 rounded w-full hover:bg-red-600 transition">
+                                            Delete
                                         </button>
-                                    )}
-                                </td>
-                                <td className="p-2">
-                                    <button className="bg-blue-500 text-white px-3 py-1 rounded w-full">Reply</button>
-                                </td>
-                                <td className="p-2">
-                                    <button className="bg-red-900 text-white px-3 py-1 rounded w-full">Ban</button>
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
+
+                                    <td className="p-2">
+                                        {comment.isAccept ? (
+                                            <button
+                                                onClick={() => rejectComment(comment._id)}
+                                                className="bg-red-500 text-white text-sm px-3 py-1 rounded w-full hover:bg-red-400 transition"
+                                            >
+                                                Reject
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() => acceptComment(comment._id)}
+                                                className="bg-green-500 text-white text-sm px-3 py-1 rounded w-full hover:bg-green-400 transition"
+                                            >
+                                                Approve
+                                            </button>
+                                        )}
+                                    </td>
+
+                                    <td className="p-2">
+                                        <button className="bg-blue-500 text-white text-sm px-3 py-1 rounded w-full hover:bg-blue-400 transition">
+                                            Reply
+                                        </button>
+                                    </td>
+
+                                    <td className="p-2">
+                                        <button className="bg-red-800 text-white text-sm px-3 py-1 rounded w-full hover:bg-red-700 transition">
+                                            Ban
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
+
             </div>
         </div>
     );

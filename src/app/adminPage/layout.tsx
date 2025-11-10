@@ -4,6 +4,15 @@ import Topbar from "@/components/modules/adminPage/Topbar";
 import { authUser } from "@/utiles/authUser";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Allora Shop",
+  description: "Allora Shop — a modern and responsive e-commerce platform built with Next.js 13 and Tailwind CSS.",
+  icons: {
+    icon: "/images/SparkNest.jpg",
+  },
+};
+
+
 export default async function AdminLayout({ children, }: { children: React.ReactNode; }) {
 
   // const user = await authUser();

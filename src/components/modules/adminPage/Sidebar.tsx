@@ -64,7 +64,7 @@ const Sidebar = () => {
             <MdSms />
             Tickets
           </Link>
-          <Link href="/adminPage/discount" className="flex items-center gap-3 hover:text-slate-300">
+          <Link href="/adminPage/discounts" className="flex items-center gap-3 hover:text-slate-300">
             <MdOutlineAttachMoney />
             Discounts
           </Link>

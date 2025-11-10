@@ -6,7 +6,7 @@ export interface IComment extends Document {
   body: string;
   email: string;
   score: number;
-  isAccept:boolean;
+  isAccept: boolean;
   date: Date;
   product: mongoose.Types.ObjectId;
 }
@@ -26,7 +26,7 @@ const CommentSchema = new Schema<IComment>({
   },
   score: {
     type: Number,
-    required: true,
+    default: 2.0,
     min: 0,
     max: 5,
   },

@@ -47,6 +47,18 @@ export async function POST(req: Request) {
       $push: { comments: comment._id },
     });
 
+    // Update product average score
+    const product = await ProductModel.findById(productID).populate("comments");
+    if (product) {
+      const allScores = product.comments.map((c: any) => c.score);
+      const avgScore =
+        allScores.reduce((acc: number, curr: number) => acc + curr, 0) /
+        allScores.length;
+
+      product.score = parseFloat(avgScore.toFixed(2)); 
+      await product.save();
+    }
+
     return NextResponse.json(
       { message: "Comment created successfully", data: comment },
       { status: 201 }
