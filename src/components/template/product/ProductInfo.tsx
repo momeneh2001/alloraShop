@@ -1,4 +1,5 @@
-import React from 'react'
+"use client";
+import React, { useState } from 'react'
 import { FaStar, FaStarHalf, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -12,6 +13,20 @@ interface ProductInfoProps {
 }
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
+    const [count, setCount] = useState(1);
+    const handleDecrease = () => {
+        if (count > 1) setCount(count - 1);
+    };
+    const handleIncrease = () => {
+        setCount(count + 1);
+    };
+
+    const addToCart = () => {
+        // const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    };
+
+
     return (
         <div className='w-[450px]'>
             <div className='border-b border-gray-400 flex-col flex gap-3 '>
@@ -33,10 +48,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
                                 <FaRegStar key={`empty-${index}`} />
                             ))
                         }
-                        {/* <FaStar />
-                        <FaStar />
-                        <FaStarHalfAlt />
-                        <FaRegStar /> */}
+                        {/* <FaStar /> <FaStar /> <FaStarHalfAlt /> <FaRegStar /> */}
                     </div>
                     <div className='child:text-gray-400'>
                         <span>({product.comments.length} Reviews)</span>
@@ -79,26 +91,41 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
                 )
             }
 
+            {/* up date  */}
+            <div className="flex items-center gap-2 mt-8">
 
-            {/* up date later */}
-            {/* <div>
-                <div className='flex items-center'>
-                    <span className='flex items-center justify-center p-1 border border-black h-11'>-</span>
-                    <input className='w-20 outline h-11 p-2' type="text" placeholder='1' />
-                    <span className='flex items-center justify-center p-1 border border-black h-11'>+</span>
+                <div className="flex items-center border border-black rounded-md overflow-hidden h-10 w-28">
+                    <button
+                        onClick={handleDecrease}
+                        className="w-8 h-full flex items-center justify-center bg-gray-100 text-base font-medium 
+                   hover:bg-red-600 hover:text-white transition cursor-pointer"
+                    >
+                        -
+                    </button>
+                    <input
+                        type="text"
+                        readOnly
+                        value={count}
+                        className="w-12 text-center outline-none text-sm pointer-events-none bg-white select-none"
+                    />
+                    <button
+                        onClick={handleIncrease}
+                        className="w-8 h-full flex items-center justify-center bg-gray-100 text-base font-medium 
+                   hover:bg-red-600 hover:text-white transition cursor-pointer"
+                    >
+                        +
+                    </button>
                 </div>
 
-                <div>
-                    <button>Buy Now</button>
+                <div className="w-10 h-10 flex items-center justify-center border border-black rounded-md cursor-pointer 
+                hover:bg-red-600 transition group">
+                    <HiOutlineHeart className="text-black group-hover:text-white transition" size={20} />
                 </div>
 
-                <div className='border border-black inline-block p-1 rounded-md'>
-                    <HiOutlineHeart className='' />
-                </div>
-            </div> */}
+            </div>
 
             <div className='mt-8'>
-                <button className='py-3 px-8 bg-red-600 text-white rounded-md'>Add to Cart</button>
+                <button onClick={addToCart} className='py-3 px-8 bg-red-600 text-white rounded-md'>Add to Cart</button>
             </div>
 
             <div className='border-black border-2 flex flex-col justify-between mt-10'>
