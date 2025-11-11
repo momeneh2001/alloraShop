@@ -12,6 +12,14 @@ interface ProductInfoProps {
     product: ProductType;
 }
 
+interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+    count: number;
+}
+
 const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     const [count, setCount] = useState(1);
     const handleDecrease = () => {
@@ -22,8 +30,25 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     };
 
     const addToCart = () => {
-        // const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
+        const existingItem = cart.find((item) => item.id === product._id);
+
+        if (existingItem) {
+            existingItem.count += count;
+        } else {
+            cart.push({
+                id: product._id,
+                name: product.name,
+                price: product.price,
+                image: product.images[0],
+                count,
+            });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        swal("Success", "Product added to cart!", "success");
     };
 
 
