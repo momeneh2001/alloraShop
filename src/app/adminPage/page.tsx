@@ -1,8 +1,5 @@
 import React from "react";
 import connectToDB from "../../../configs/db";
-
-
-// import styles from "@/styles/p-admin/index.module.css";
 import Box from "../../components/modules/adminPage/infoBox/InfoBox";
 import SalesChart from "@/components/modules/adminPage/charts/SalesChart";
 

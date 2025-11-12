@@ -16,28 +16,50 @@ import {
   MdSms,
   MdLogout,
 } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 
 const Sidebar = () => {
-
-
-  const logoutHandler = () => {
+  const router = useRouter();
+  const logoutHandler = async () => {
     swal({
-      title: "آیا از خروج اطمینان دارید؟",
+      title: "Are you sure you want to logout?",
       icon: "warning",
-      buttons: ["خیر", "بله"],
-    }).then((result) => {
-      if (result) {
-        // TODO: اضافه کردن لاگ‌اوت واقعی (پاک کردن توکن، ریدایرکت به صفحه لاگین)
-        console.log("User logged out");
+      buttons: ["No", "Yes"],
+    }).then(async (confirmed) => {
+      if (confirmed) {
+        try {
+          const res = await fetch("/api/auth/signout", { method: "POST" });
+          if (res.ok) {
+            (swal as any)({
+              title: "You have been logged out successfully!",
+              icon: "success",
+              button: "Close",
+            }).then(() => {
+              router.push("/");
+            });
+          } else {
+            (swal as any)({
+              title: "Logout failed. Please try again.",
+              icon: "error",
+              button: "Close",
+            });
+          }
+        } catch (err) {
+          console.error(err);
+          (swal as any)({
+            title: "Something went wrong",
+            icon: "error",
+            button: "Close",
+          });
+        }
       }
     });
   };
 
-
   return (
     <aside className="w-[280px] lg:w-[350px] h-screen bg-gray-800 text-white p-4 sticky top-0 flex flex-col justify-between">
-   
+
       <div>
         <div className="text-center mt-3 pb-6 border-b border-gray-600">
           <p className="text-lg font-semibold">Welcome Mohammad</p>
