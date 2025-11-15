@@ -17,10 +17,7 @@ function WishlistItem() {
 
         <div className="mt-10 grid gap-6 
           grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+         
         </div>
       </section>
 
@@ -41,10 +38,7 @@ function WishlistItem() {
 
         <div className="mt-10 grid gap-6 
           grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-          <ProductCard img="/images/product-img.png" title="S-Series Comfort Chair" Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+        
         </div>
       </section>
     </main>
