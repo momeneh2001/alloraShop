@@ -86,7 +86,12 @@ export async function POST(req: Request) {
         price: v.price ? Number(v.price) : undefined,
       }))
       .filter(
-        (v) =>
+        (v: {
+          color: { name?: string; hex?: string };
+          size?: string;
+          stock?: number;
+          price?: number;
+        }) =>
           v.color.name ||
           v.color.hex ||
           v.size ||
