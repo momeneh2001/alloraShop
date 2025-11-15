@@ -8,10 +8,10 @@ function MoreProducts() {
     <section className='container mb-24'>
       <SectionHeader titel='' miniTitle='Related Item' btn='' />
       <div className='flex justify-between'>
-        <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-        <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-        <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-        <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+      <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
+      <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
+      <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
+      <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
       </div>
     </section>
   )

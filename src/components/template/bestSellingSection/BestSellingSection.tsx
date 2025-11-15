@@ -34,32 +34,30 @@ function BestSellingSection() {
                 className="mySwiper"
             >
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
+                    <ProductCard images='http://localhost:3000/images/product-img.png' name='S-Series Comfort Chair' price={100} discount={3} id='19191' score={2.5}  />
                 </SwiperSlide>
-                <SwiperSlide>
-                    <ProductCard img='/images/product-img.png' title='S-Series Comfort Chair' Price={100} originalPrice={200} off={50} rating={3} ratingCount={55} />
-                </SwiperSlide>
+             
             </Swiper>
         </section>
     )

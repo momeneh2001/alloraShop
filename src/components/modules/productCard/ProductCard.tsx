@@ -1,73 +1,91 @@
-import Image from 'next/image'
-import React from 'react'
+"use client";
+import Link from "next/link";
+import React from "react";
 import { IoEyeOutline } from "react-icons/io5";
-import { HiOutlineHeart } from "react-icons/hi2";
-import { CiStar } from "react-icons/ci";
-import { FaStar,FaStarHalf,FaRegStar,FaStarHalfAlt } from "react-icons/fa";
-import Link from 'next/link';
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import AddToWishlist from "@/components/template/product/AddToWishlist"; 
 
-interface ProductCardProps{
-    img: string,
-    title:string,
-    off?:number,
-    Price:number,
-    originalPrice?:number,
-    rating:number,
-    ratingCount:number,
-    color?:{}
+interface ProductCardProps {
+  name: string;
+  images?: string;
+  price?: number;
+  discount?: number;
+  score?: number;
+  id: string;
 }
 
+const ProductCard: React.FC<ProductCardProps> = ({
+  name,
+  images,
+  price = 0,
+  discount = 0,
+  score = 0,
+  id,
+}) => {
+  const safePrice = typeof price === "number" ? price : 0;
+  const safeDiscount = typeof discount === "number" ? discount : 0;
+  const discountedPrice = safeDiscount > 0 ? safePrice - (safePrice * safeDiscount) / 100 : safePrice;
 
-function ProductCard({img,title,off,Price,originalPrice,rating,ratingCount,color}:(ProductCardProps)) {
-    return (
-        <div className='flex flex-col gap-3'>
-            <div className='w-[270px] h-[250px] bg-neutral-100 rounded-md relative flex justify-center items-center'>
-                <img className='w-[190px] h-[180px]' src={img} alt="" />
-                {/* icons */}
-                <div className='absolute top-3 right-3 flex flex-col gap-2'>
-                    <button className='bg-white hover:bg-red-600 hover:text-white w-8 h-8 rounded-full flex items-center justify-center'>
-                        <HiOutlineHeart className='' />
-                    </button>
-                    <Link className='bg-white hover:bg-blue-600 hover:text-white w-8 h-8 rounded-full flex items-center justify-center' href=''>
-                        <IoEyeOutline className='' />
-                    </Link>
-                </div>
-                {/* tag */}
-                <div className='absolute top-4 left-6'>
-                    {
-                        off &&(<span className='bg-red-500 text-white py-1 px-3 rounded-lg font-thin text-sm'>- {off}%</span>)
-                    }
-                    {/* <span className='bg-green-500 text-white py-1 px-3 rounded-lg font-thin text-sm'>NEW</span> */}
-                </div>
+  const safeScore = Math.min(Math.max(score, 0), 5);
+  const fullStars = Math.floor(safeScore);
+  const halfStar = safeScore - fullStars >= 0.5;
+  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
-                <button className='absolute bottom-0 w-full h-10 bg-black text-white flex items-center justify-center rounded-b-md text-base'>
-                    Add To Cart
-                </button>
-            </div>
+  const imgSrc = images ? (images.startsWith("http") ? images : `/${images}`) : "/images/placeholder.png";
 
-            <div>
-                <h6>{title} </h6>
-                <div className='flex gap-3'>
-                    <span className='text-red-500'>${Price}</span>
-                    {
-                        originalPrice &&(<span className='text-gray-400 line-through'>${originalPrice}</span>)
-                    }
-                </div>
-                <div className='flex items-center'>
-                    <div className='flex child:text-yellow-500'>
-                    <FaStar />
-                    <FaStarHalfAlt  />
-                    <FaRegStar/> 
-                    <FaRegStar/> 
-                    <FaRegStar/> 
-                    </div>
-                    <span className='text-gray-400'>(99)</span>
-                </div>
-                {/* color cho */}
-                {/* <div></div> */}
-            </div>
+  return (
+    <div className="flex flex-col gap-3 w-[270px]">
+      <div className="w-full h-[250px] bg-neutral-100 rounded-md relative flex justify-center items-center">
+        <img
+          src={imgSrc}
+          alt={name}
+          className="object-contain w-[190px] h-[180px]"
+        />
+
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          <AddToWishlist productID={id} />
+
+          <Link
+            href={`/product/${id}`}
+            className="bg-white hover:bg-blue-600 hover:text-white w-8 h-8 rounded-full flex items-center justify-center"
+          >
+            <IoEyeOutline />
+          </Link>
         </div>
-    )
-}
 
-export default ProductCard
+        {safeDiscount > 0 && (
+          <div className="absolute top-4 left-6">
+            <span className="bg-red-500 text-white py-1 px-3 rounded-lg font-thin text-sm">
+              -{safeDiscount}%
+            </span>
+          </div>
+        )}
+
+        <button className="absolute bottom-0 w-full h-10 bg-black text-white flex items-center justify-center rounded-b-md text-base">
+          Add To Cart
+        </button>
+      </div>
+
+      <div>
+        <h6 className="font-medium">{name}</h6>
+        <div className="flex gap-3 items-center">
+          <span className="text-red-500">${discountedPrice.toFixed(2)}</span>
+          {safeDiscount > 0 && (
+            <span className="text-gray-400 line-through">${safePrice.toFixed(2)}</span>
+          )}
+        </div>
+        <div className="flex items-center gap-1">
+          {Array(fullStars).fill(0).map((_, i) => (
+            <FaStar key={`full-${i}`} className="text-yellow-500" />
+          ))}
+          {halfStar && <FaStarHalfAlt className="text-yellow-500" />}
+          {Array(emptyStars).fill(0).map((_, i) => (
+            <FaRegStar key={`empty-${i}`} className="text-yellow-500" />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductCard;

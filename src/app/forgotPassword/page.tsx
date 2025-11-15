@@ -6,25 +6,27 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from "react";
 
-interface ForgotPasswordProps {
-  onCancel: () => void; // برای برگشت به Login
-}
 
-function ForgotPassword({ onCancel }: ForgotPasswordProps) {
+
+function ForgotPassword() {
   const [step, setStep] = useState<"enterEmail" | "enterCode">("enterEmail");
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [code, setCode] = useState("");
 
   const handleSendCode = (e: React.FormEvent) => {
     e.preventDefault();
-    // اینجا API ارسال کد بازنشانی را صدا بزن
     setStep("enterCode");
   };
 
   const handleVerifyCode = (e: React.FormEvent) => {
     e.preventDefault();
-    // اینجا کد را بررسی کن و اجازه تغییر رمز بده
-    alert("Code verified! You can now reset your password.");
+  
+    (swal as any)({
+      title: "Code verified!",
+      text: "You can now reset your password.",
+      icon: "success",
+      button: "Close",
+    });
   };
 
   return (

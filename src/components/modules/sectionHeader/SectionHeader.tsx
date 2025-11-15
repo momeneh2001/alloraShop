@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { useTimer } from "react-timer-hook";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
@@ -25,7 +26,7 @@ function SectionHeader({ miniTitle, titel, btn,time }: (sectionHeaderProps)) {
     const timeParts = [
         { label: "Days", value: days },
         { label: "Hours", value: hours },
-        { label: "Hours", value: minutes },
+        { label: "minutes", value: minutes },
         { label: "Seconds", value: seconds },
     ];
 

@@ -11,8 +11,11 @@ import ServicesSection from "@/components/template/servicesSection/ServicesSecti
 import { verifyAccessToken } from "@/utiles/auth";
 import { cookies } from "next/headers";
 import UserModel from "../../models/User"
+import ProductModel from "../../models/Product"
+import connectToDB from "../../configs/db";
 
 export default async function Home() {
+  await connectToDB();
   const token = cookies().get("token")
   let user = null
 
@@ -23,7 +26,7 @@ export default async function Home() {
     }
 
   }
-
+  const latestProducts = await ProductModel.find({}).sort({ _id: -1 });
   return (
     <>
       <Navbar isLogin={!!user} />
@@ -33,7 +36,7 @@ export default async function Home() {
         <CategorySection />
         <BestSellingSection />
         <PromoSection />
-        <ExploreSection />
+        <ExploreSection products={JSON.parse(JSON.stringify(latestProducts))} />
         <LatestProductsSection />
         <ServicesSection />
         <Footer />
